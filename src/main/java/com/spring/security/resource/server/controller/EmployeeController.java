@@ -1,5 +1,6 @@
 package com.spring.security.resource.server.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 	
 	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/test/admin")
+	public String testAdmin() {
+		return "test : success for ADMIN";
+	}
 	
-	@GetMapping("/test")
-	public String test() {
-		return "test : success";
+	@PreAuthorize("hasRole('USER')")
+	@GetMapping("/test/user")
+	public String testUser() {
+		return "test : success for USER";
 	}
 
 }
